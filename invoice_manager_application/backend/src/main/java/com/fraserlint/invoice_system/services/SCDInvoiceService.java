@@ -5,6 +5,7 @@ import com.fraserlint.invoice_system.repos.SCDInvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -28,10 +29,10 @@ public class SCDInvoiceService {
     }
 
     // Get total amount for a specified week
-    public double getTotalForWeek(LocalDate startDate, LocalDate endDate) {
-        return scdInvoiceRepository.findByDateBetween(startDate, endDate)
-                .stream()
-                .mapToDouble(SCDInvoice::getAmount)
-                .sum();
+    public double getTotalForWeek(LocalDate startDate) {
+        LocalDate startOfWeek = startDate.with(DayOfWeek.MONDAY); // Calculate the start of the week (Monday)
+        LocalDate endOfWeek = startDate.with(DayOfWeek.SUNDAY);   // Calculate the end of the week (Sunday)
+        List<SCDInvoice> weeklyInvoices = scdInvoiceRepository.findByDateBetween(startOfWeek, endOfWeek);
+        return weeklyInvoices.stream().mapToDouble(SCDInvoice::getAmount).sum();
     }
 }

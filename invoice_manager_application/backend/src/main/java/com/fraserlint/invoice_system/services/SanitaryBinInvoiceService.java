@@ -5,6 +5,7 @@ import com.fraserlint.invoice_system.repos.SanitaryBinInvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -28,11 +29,11 @@ public class SanitaryBinInvoiceService {
     }
 
     // Get total amount for a specified week
-    public double getTotalForWeek(LocalDate startDate, LocalDate endDate) {
-        return sanitaryBinInvoiceRepository.findByDateBetween(startDate, endDate)
-                .stream()
-                .mapToDouble(SanitaryBinInvoice::getExpense)
-                .sum();
+    public double getTotalForWeek(LocalDate startDate) {
+        LocalDate startOfWeek = startDate.with(DayOfWeek.MONDAY); // Calculate the start of the week (Monday)
+        LocalDate endOfWeek = startOfWeek.with(DayOfWeek.SUNDAY);   // Calculate the end of the week (Sunday)
+        List<SanitaryBinInvoice> weeklyInvoices = sanitaryBinInvoiceRepository.findByDateBetween(startOfWeek, endOfWeek);
+        return weeklyInvoices.stream().mapToDouble(SanitaryBinInvoice::getExpense).sum();
     }
 
     // Calculate profit for a tax year
