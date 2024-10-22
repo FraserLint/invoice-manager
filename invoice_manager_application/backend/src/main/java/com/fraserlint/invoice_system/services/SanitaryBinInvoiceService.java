@@ -28,6 +28,11 @@ public class SanitaryBinInvoiceService {
         return sanitaryBinInvoiceRepository.findByDateBetween(startDate, endDate);
     }
 
+    // Calculate profit for each company
+    public List<Object[]> calculateProfitPerCompany() {
+        return sanitaryBinInvoiceRepository.calculateProfitPerCompany();
+    }
+
     // Get total amount for a specified week
     public double getTotalForWeek(LocalDate startDate) {
         LocalDate startOfWeek = startDate.with(DayOfWeek.MONDAY); // Calculate the start of the week (Monday)
