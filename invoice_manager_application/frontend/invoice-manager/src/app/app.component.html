@@ -1,5 +1,10 @@
-<nav>
-  <a mat-button routerLink="/scd-invoices">SCD Invoices</a>
-  <a mat-button routerLink="/sanitary-bin-invoices">Sanitary Bin Invoices</a>
-</nav>
+<mat-toolbar>
+  <span>Invoice Manager</span>
+  <span class="example-spacer"></span>
+  <div class="options">
+    <button mat-raised-button routerLink="/scd-invoices">SCD Invoices</button>
+    <button mat-raised-button routerLink="/sanitary-bin-invoices">Sanitary Bin Invoices</button>
+  </div>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

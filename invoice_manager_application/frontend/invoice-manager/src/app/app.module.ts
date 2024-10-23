@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ScdInvoicesComponent } from './scd-invoices/scd-invoices.component';
 import { SanitaryBinInvoicesComponent } from './sanitary-bin-invoices/sanitary-bin-invoices.component';
-import {MatAnchor} from '@angular/material/button';
+import {MatAnchor, MatButton, MatIconButton} from '@angular/material/button';
+import {MatToolbar} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,10 @@ import {MatAnchor} from '@angular/material/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatAnchor
+    MatAnchor,
+    MatToolbar,
+    MatIconButton,
+    MatButton
   ],
   providers: [
     provideAnimationsAsync()
