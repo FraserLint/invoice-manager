@@ -34,11 +34,19 @@ public class SanitaryBinInvoiceService {
     }
 
     // Get total amount for a specified week
-    public double getTotalForWeek(LocalDate startDate) {
-        LocalDate startOfWeek = startDate.with(DayOfWeek.MONDAY); // Calculate the start of the week (Monday)
-        LocalDate endOfWeek = startOfWeek.with(DayOfWeek.SUNDAY);   // Calculate the end of the week (Sunday)
+    public double getTotalForWeek(String startDate) {
+        // Parse the incoming string into LocalDate
+        LocalDate parsedStartDate = LocalDate.parse(startDate);
+
+        // Work out the start and end of the week
+        LocalDate startOfWeek = parsedStartDate.with(DayOfWeek.MONDAY); // Start of the week (Monday)
+        LocalDate endOfWeek = parsedStartDate.with(DayOfWeek.SUNDAY);   // End of the week (Sunday)
+
+        // Fetch the invoices between start and end of the week
         List<SanitaryBinInvoice> weeklyInvoices = sanitaryBinInvoiceRepository.findByDateBetween(startOfWeek, endOfWeek);
-        return weeklyInvoices.stream().mapToDouble(SanitaryBinInvoice::getExpense).sum();
+
+        // Calculate and return the total amount for that week
+        return weeklyInvoices.stream().mapToDouble(SanitaryBinInvoice::getProfit).sum();
     }
 
     // Calculate profit for a tax year

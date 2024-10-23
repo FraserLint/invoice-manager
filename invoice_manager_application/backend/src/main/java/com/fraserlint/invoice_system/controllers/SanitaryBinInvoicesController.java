@@ -5,7 +5,6 @@ import com.fraserlint.invoice_system.services.SanitaryBinInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,7 +24,7 @@ public class SanitaryBinInvoicesController {
     }
 
     @GetMapping("/week")
-    public double getTotalForWeek(@RequestParam LocalDate startDate) {
+    public double getTotalForWeek(@RequestParam String startDate) {
         return sanitaryBinInvoiceService.getTotalForWeek(startDate);
     }
 

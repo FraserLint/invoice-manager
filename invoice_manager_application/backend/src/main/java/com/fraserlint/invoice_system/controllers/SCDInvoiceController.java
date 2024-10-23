@@ -5,7 +5,6 @@ import com.fraserlint.invoice_system.services.SCDInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,11 +21,11 @@ public class SCDInvoiceController {
 
     @GetMapping("/tax-year/{year}")
     public List<SCDInvoice> getInvoicesForTaxYear(@PathVariable int year) {
-        return scdInvoiceService.getInvoicesForTaxYear(year);
+        return scdInvoiceService.getInvoicesForTaxYear((year));
     }
 
-    @PostMapping("/week")
-    public double getTotalForWeek(@RequestParam LocalDate startDate) {
+    @GetMapping("/week")
+    public double getTotalForWeek(@RequestParam String startDate) {
         return scdInvoiceService.getTotalForWeek(startDate);
     }
 }

@@ -29,10 +29,18 @@ public class SCDInvoiceService {
     }
 
     // Get total amount for a specified week
-    public double getTotalForWeek(LocalDate startDate) {
-        LocalDate startOfWeek = startDate.with(DayOfWeek.MONDAY); // Calculate the start of the week (Monday)
-        LocalDate endOfWeek = startDate.with(DayOfWeek.SUNDAY);   // Calculate the end of the week (Sunday)
+    public double getTotalForWeek(String startDate) {
+        // Parse the incoming string into LocalDate
+        LocalDate parsedStartDate = LocalDate.parse(startDate);
+
+        // Work out the start and end of the week
+        LocalDate startOfWeek = parsedStartDate.with(DayOfWeek.MONDAY); // Start of the week (Monday)
+        LocalDate endOfWeek = parsedStartDate.with(DayOfWeek.SUNDAY);   // End of the week (Sunday)
+
+        // Fetch the invoices between start and end of the week
         List<SCDInvoice> weeklyInvoices = scdInvoiceRepository.findByDateBetween(startOfWeek, endOfWeek);
+
+        // Calculate and return the total amount for that week
         return weeklyInvoices.stream().mapToDouble(SCDInvoice::getAmount).sum();
     }
 }
