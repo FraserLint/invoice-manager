@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sanitary-bin-invoices")
+@RequestMapping("/api/sanitary-bin-invoices")
 public class SanitaryBinInvoicesController {
     @Autowired
     private SanitaryBinInvoiceService sanitaryBinInvoiceService;
