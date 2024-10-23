@@ -24,6 +24,11 @@ public class SCDInvoiceController {
         return scdInvoiceService.getInvoicesForTaxYear((year));
     }
 
+    @GetMapping("/total/tax-year/{year}")
+    public double getTotalAmountForTaxYear(@PathVariable int year) {
+        return scdInvoiceService.getTotalAmountForTaxYear(year);
+    }
+
     @GetMapping("/week")
     public double getTotalForWeek(@RequestParam String startDate) {
         return scdInvoiceService.getTotalForWeek(startDate);

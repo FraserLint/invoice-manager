@@ -28,6 +28,20 @@ public class SCDInvoiceService {
         return scdInvoiceRepository.findByDateBetween(startDate, endDate);
     }
 
+// Get total amount for a tax year
+    public double getTotalAmountForTaxYear(int year) {
+        // Define the start and end date of the British tax year
+        LocalDate startDate = LocalDate.of(year, Month.APRIL, 6);
+        LocalDate endDate = LocalDate.of(year + 1, Month.APRIL, 5);
+
+        // Fetch all invoices between the start and end date
+        List<SCDInvoice> invoices = scdInvoiceRepository.findByDateBetween(startDate, endDate);
+
+        // Calculate the total amount for the tax year
+        return invoices.stream().mapToDouble(SCDInvoice::getAmount).sum();
+    }
+
+
     // Get total amount for a specified week
     public double getTotalForWeek(String startDate) {
         // Parse the incoming string into LocalDate
